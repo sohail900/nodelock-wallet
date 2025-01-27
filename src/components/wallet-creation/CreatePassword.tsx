@@ -1,16 +1,24 @@
 import React, { Dispatch } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { ChevronLeft } from 'lucide-react'
-const CreatePassword: React.FC<{ setStep: Dispatch<number> }> = ({
-    setStep,
+interface CreatePasswordProps {
+    formData: { password: string; confirmPassword: string }
+    setFormData: Dispatch<any>
+    generateMnemonic: () => void
+}
+
+const CreatePassword: React.FC<CreatePasswordProps> = ({
+    formData,
+    setFormData,
+    generateMnemonic,
 }) => {
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const name = e.target.name
+        const value = e.target.value
+        setFormData((pre: any) => ({ ...pre, [name]: value }))
+    }
     return (
         <>
-            <ChevronLeft
-                className='text-white/60 absolute left-5 cursor-pointer'
-                size={25}
-            />
             <h1 className='text-center text-2xl font-semibold'>
                 Create a password
             </h1>
@@ -21,16 +29,34 @@ const CreatePassword: React.FC<{ setStep: Dispatch<number> }> = ({
             <Input
                 type='password'
                 placeholder='Password'
+                value={formData.password}
+                name='password'
+                onChange={onChangeHandler}
                 className='mt-8 py-6 rounded-lg border-none bg-secondary text-white'
             />
             <Input
                 type='password'
                 placeholder='Confirm password'
+                name='confirmPassword'
+                value={formData.confirmPassword}
+                onChange={onChangeHandler}
                 className='py-6 mt-2 mb-6 rounded-lg border-none bg-secondary text-white'
             />
+            {formData.confirmPassword &&
+                formData.password !== formData.confirmPassword && (
+                    <p className='text-red-500 mb-2 text-sm'>
+                        Password and Confirm Password do not match
+                    </p>
+                )}
             <Button
-                onClick={() => setStep(2)}
-                className='w-full mb-2 py-5 font-medium rounded-lg text-bg-color'
+                onClick={() => {
+                    generateMnemonic()
+                }}
+                disabled={
+                    !formData.password ||
+                    formData.password !== formData.confirmPassword
+                }
+                className='w-full py-5 font-medium rounded-lg text-bg-color disabled:bg-secondary disabled:text-white/70'
             >
                 Continue
             </Button>

@@ -1,9 +1,16 @@
+'use client'
 import { Button } from '@/components/ui/button'
-
-import GeneratePhrase from '@/components/wallet-creation/GeneratePhrase'
-import React from 'react'
+import { redirect, useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
 
 export default function Home() {
+    const router = useRouter()
+
+    useEffect(() => {
+        if (localStorage.getItem('encryptedSeeds')) {
+            router.push('/unlock')
+        }
+    }, [router])
     return (
         <section className='w-screen h-screen grid place-items-center'>
             <div className='w-[30%] rounded-3xl py-8 px-6 border border-gray-500/20 relative'>
@@ -15,7 +22,10 @@ export default function Home() {
                 </p>
                 <hr className='mx-auto my-8 border-none outline-none w-[0.2px] h-[70px] bg-gray-500/10' />
                 <div className='mx-auto w-[85%]'>
-                    <Button className='w-full mb-2 py-5 font-medium rounded-lg text-bg-color'>
+                    <Button
+                        className='w-full mb-2 py-5 font-medium rounded-lg text-bg-color'
+                        onClick={() => router.push('/create-wallet')}
+                    >
                         Create a new wallet
                     </Button>
                     <Button className='w-full rounded-lg bg-light-gray py-5 font-medium text-white bg-secondary'>
