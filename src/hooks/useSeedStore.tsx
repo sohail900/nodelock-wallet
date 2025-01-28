@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
 export const useSeedStore = create((set) => ({
-    seed: '',
+    seeds: '',
     setSeeds: (seed: string) => set({ seed }),
 }))
