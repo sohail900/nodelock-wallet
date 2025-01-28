@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { WalletService } from '@/lib/wallet'
+import { toast } from '@/hooks/use-toast'
 
 const UnlockWallet = () => {
     const [password, setPassword] = useState('')
@@ -11,11 +12,24 @@ const UnlockWallet = () => {
         if (!password) return
         const encryptSeed = localStorage.getItem('encryptedSeeds')
         const walletInstance = WalletService.getInstance()
-        const decryptSeed = await walletInstance.decryptMnemonic(
-            encryptSeed as string,
-            password
-        )
-        console.log(decryptSeed)
+        try {
+            const decryptSeed = await walletInstance.decryptMnemonic(
+                encryptSeed as string,
+                password
+            )
+            console.log(decryptSeed)
+            toast({
+                title: "You've successfully unlocked your wallet",
+            })
+        } catch (e) {
+            if (e instanceof Error) {
+                toast({
+                    variant: 'destructive',
+                    title: e.message,
+                })
+            }
+            console.log(e)
+        }
     }
     return (
         <section className='w-screen h-screen grid place-items-center'>
