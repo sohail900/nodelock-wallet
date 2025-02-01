@@ -2,10 +2,10 @@
 import { useToggleSidebar } from '@/hooks/useToggleSidebar'
 import { ArrowLeft, Pencil, Plus, Settings2 } from 'lucide-react'
 import React from 'react'
-import Accounts from './Accounts'
+import SidebarAccounts from './SidebarAccounts'
 
 const Sidebar = () => {
-    const { isSidebarOpen, closeSidebar, openSidebar } = useToggleSidebar()
+    const { isSidebarOpen, closeSidebar } = useToggleSidebar()
     return (
         <div
             className={`w-16 bg-black h-[96vh] absolute top-3 rounded-2xl transition-all duration-100 ease-in-out ${
@@ -21,7 +21,7 @@ const Sidebar = () => {
                         <ArrowLeft size={21} />
                     </div>
                     {Array.from({ length: 5 }).map((_, i) => (
-                        <Accounts key={i} index={i} />
+                        <SidebarAccounts key={i} index={i} />
                     ))}
                 </div>
                 <div className='w-full'>

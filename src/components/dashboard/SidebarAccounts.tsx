@@ -1,9 +1,9 @@
 import React from 'react'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 
-const Accounts = ({ index }: { index: number }) => {
+const SidebarAccounts = ({ index }: { index: number }) => {
     return (
-        <div className='flex items-center gap-1 flex-col w-full cursor-pointer'>
+        <div className='flex items-center gap-1 flex-col w-full cursor-pointer relative'>
             <Avatar className='h-12 w-full  text-base '>
                 <AvatarFallback className='bg-bg-color'>
                     A{index + 1}
@@ -14,4 +14,4 @@ const Accounts = ({ index }: { index: number }) => {
     )
 }
 
-export default Accounts
+export default SidebarAccounts
