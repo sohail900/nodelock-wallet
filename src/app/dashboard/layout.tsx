@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Welcome to Nodelock Wallet Dashboard',
+    title: 'Dashboard',
     description: 'Nodelock Wallet Dashboard',
 }
 

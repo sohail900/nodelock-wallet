@@ -2,7 +2,7 @@
 import { useToggleSidebar } from '@/hooks/useToggleSidebar'
 import { ArrowLeft, Pencil, Plus, Settings2 } from 'lucide-react'
 import React from 'react'
-import SidebarAccounts from './SidebarAccounts'
+import SidebarAccounts from '@/components/dashboard/SidebarAccounts'
 
 const Sidebar = () => {
     const { isSidebarOpen, closeSidebar } = useToggleSidebar()
