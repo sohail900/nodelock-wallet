@@ -3,10 +3,8 @@ import React, { useState } from 'react'
 import CreatePassword from '@/components/wallet-creation/CreatePassword'
 import GeneratePhrase from '@/components/wallet-creation/GeneratePhrase'
 import { WalletService } from '@/lib/wallet'
-import { useRouter } from 'next/navigation'
 
 const CreateWallet = () => {
-    const router = useRouter()
     const [step, setStep] = useState(1)
     const [mnemonic, setMnemonic] = useState('')
     const [formData, setFormData] = useState({

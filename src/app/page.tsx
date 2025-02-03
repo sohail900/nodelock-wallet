@@ -1,16 +1,21 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { redirect, useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
 export default function Home() {
     const router = useRouter()
-
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         if (localStorage.getItem('encryptedSeeds')) {
             router.push('/unlock')
         }
     }, [router])
+    // navigate to create-wallet page
+    const handleCreateWallet = () => {
+        setLoading(true)
+        router.push('/create-wallet')
+    }
     return (
         <section className='w-screen h-screen grid place-items-center'>
             <div className='w-[30%] rounded-3xl py-8 px-6 border border-gray-500/20 relative'>
@@ -24,9 +29,10 @@ export default function Home() {
                 <div className='mx-auto w-[85%]'>
                     <Button
                         className='w-full mb-2 py-5 font-medium rounded-lg text-bg-color'
-                        onClick={() => router.push('/create-wallet')}
+                        onClick={handleCreateWallet}
+                        disabled={loading}
                     >
-                        Create a new wallet
+                        {loading ? 'Loading...' : 'Create a new wallet'}
                     </Button>
                     <Button className='w-full rounded-lg bg-light-gray py-5 font-medium text-white bg-secondary'>
                         Import Wallet

@@ -4,20 +4,25 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { WalletService } from '@/lib/wallet'
 import { toast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 
 const UnlockWallet = () => {
+    const router = useRouter()
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
     // TODO: Decrypt seeds with password
     const onClickHandler = async () => {
         if (!password) return
-        const encryptSeed = localStorage.getItem('encryptedSeeds')
-        const walletInstance = WalletService.getInstance()
         try {
+            setLoading(true)
+            const encryptSeed = localStorage.getItem('encryptedSeeds')
+            const walletInstance = WalletService.getInstance()
             const decryptSeed = await walletInstance.decryptMnemonic(
                 encryptSeed as string,
                 password
             )
             console.log(decryptSeed)
+            router.push('/dashboard')
             toast({
                 title: "You've successfully unlocked your wallet",
             })
@@ -29,6 +34,10 @@ const UnlockWallet = () => {
                 })
             }
             console.log(e)
+        } finally {
+            setTimeout(() => {
+                setLoading(false)
+            }, 1000)
         }
     }
     return (
@@ -51,8 +60,9 @@ const UnlockWallet = () => {
                 <Button
                     className='w-full py-5 font-medium rounded-lg text-bg-color disabled:bg-secondary disabled:text-white/70'
                     onClick={onClickHandler}
+                    disabled={loading}
                 >
-                    Unlock Wallet
+                    {loading ? 'Loading...' : 'Unlock Wallet'}
                 </Button>
             </div>
         </section>

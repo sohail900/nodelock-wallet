@@ -11,7 +11,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-    title: 'Welcome',
+    title: 'NodeLock-Wallet',
     description: 'Nodelock wallet',
 }
 

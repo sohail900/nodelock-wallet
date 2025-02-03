@@ -8,13 +8,11 @@ const Header = () => {
     const [toggleAccountKeys, setToggleAccountKeys] = useState(false)
     const { openSidebar } = useToggleSidebar()
 
-    // hide when mouse leave
-
     return (
-        <div className='w-full py-4 px-6 relative grid place-items-center bg-secondary'>
+        <div className='w-full py-4 px-6 grid place-items-center bg-secondary relative'>
             <AlignJustify
                 size={23}
-                className='absolute left-6 cursor-pointer'
+                className='absolute left-5 cursor-pointer'
                 onClick={() => openSidebar()}
             />
             <div
