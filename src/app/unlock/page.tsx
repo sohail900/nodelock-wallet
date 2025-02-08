@@ -16,12 +16,13 @@ const UnlockWallet = () => {
         try {
             setLoading(true)
             const encryptSeed = localStorage.getItem('encryptedSeeds')
+            const key = localStorage.getItem('key')
             const walletInstance = WalletService.getInstance()
-            const decryptSeed = await walletInstance.decryptMnemonic(
+            await walletInstance.comparePassword(
                 encryptSeed as string,
-                password
+                password,
+                key
             )
-            console.log(decryptSeed)
             router.push('/dashboard')
             toast({
                 title: "You've successfully unlocked your wallet",

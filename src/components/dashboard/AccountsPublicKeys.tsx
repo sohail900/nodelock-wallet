@@ -2,11 +2,35 @@
 import React, { useState } from 'react'
 import { SolanaIcon, EtheriumIcon } from '@/icons'
 import { Copy } from 'lucide-react'
-const SOLANA_PUBLIC_KEY = 'ADG4TwmLEKQeQueVwpnhZvB5QiPA8hm2u11QCrartCjr'
-const ETHERIUM_PUBLIC_KEY = '0x3EE3E6CFC5ae6FAe1CC29E2C253E14B0140a1eE9'
+import { WalletService } from '@/lib/wallet'
+import { useCurrentAccount } from '@/hooks/useCurrentAccount'
+
+const KEY = localStorage.getItem('key')
+const ENCRYPTED_SEEDS = localStorage.getItem('encryptedSeeds')
+
 const AccountsPublicKeys = () => {
     const [solKeyCopied, setSolKeyCopied] = useState(false)
     const [ethKeyCopied, setEthKeyCopied] = useState(false)
+    const { currentAccount } = useCurrentAccount()
+
+    const walletInstance = WalletService.getInstance()
+
+    // solana wallet
+    const { publicKey } = walletInstance.getSolanaWallet({
+        accountIndex: currentAccount,
+        key: KEY as string,
+        encryptedSeeds: ENCRYPTED_SEEDS as string,
+    })
+    // ethers wallet
+    const { address } = walletInstance.getEthersWallet({
+        accountIndex: currentAccount,
+        key: KEY as string,
+        encryptedSeeds: ENCRYPTED_SEEDS as string,
+    })
+
+    const ETHERIUM_PUBLIC_KEY = address
+    const SOLANA_PUBLIC_KEY = publicKey
+
     // COPY SOL KEY
     const copySolKey = async (key: string) => {
         try {

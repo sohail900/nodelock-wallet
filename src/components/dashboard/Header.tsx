@@ -1,11 +1,13 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { AlignJustify, ArrowDown } from 'lucide-react'
 import { useToggleSidebar } from '@/hooks/useToggleSidebar'
 import AccountsPublicKeys from '@/components/dashboard/AccountsPublicKeys'
+import { useCurrentAccount } from '@/hooks/useCurrentAccount'
 const Header = () => {
     const [toggleAccountKeys, setToggleAccountKeys] = useState(false)
+    const { currentAccount } = useCurrentAccount()
     const { openSidebar } = useToggleSidebar()
 
     return (
@@ -21,9 +23,9 @@ const Header = () => {
                 onMouseLeave={() => setToggleAccountKeys(false)}
             >
                 <Avatar className='h-6 w-6 text-black text-sm'>
-                    <AvatarFallback>A1</AvatarFallback>
+                    <AvatarFallback>A{currentAccount + 1}</AvatarFallback>
                 </Avatar>
-                <p className='text-sm'>Account 1</p>
+                <p className='text-sm'>Account {currentAccount + 1}</p>
                 <ArrowDown size={15} className='' />
             </div>
             <div

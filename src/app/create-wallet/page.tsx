@@ -17,12 +17,13 @@ const CreateWallet = () => {
         const walletInstance = WalletService.getInstance()
         const newMnemonics = walletInstance.generateMnemonic()
         // encrypt seeds
-        const encryptedSeeds = await walletInstance.encryptMnemonic(
+        const { key, encryptedSeed } = await walletInstance.encryptMnemonic(
             newMnemonics,
             formData.password
         )
         setMnemonic(newMnemonics)
-        localStorage.setItem('encryptedSeeds', encryptedSeeds)
+        localStorage.setItem('encryptedSeeds', encryptedSeed)
+        localStorage.setItem('key', key)
         setStep(2)
     }
     return (

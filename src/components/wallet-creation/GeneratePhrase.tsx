@@ -23,7 +23,9 @@ const GeneratePhrase = ({ mnemonics }: { mnemonics: string }) => {
                                 className='text-white text-center gap-1 rounded-lg bg-secondary py-2 w-full px-2 '
                                 key={index}
                             >
-                                <p>{elem}</p>
+                                <p>
+                                    <span>{index + 1}.</span> {elem}
+                                </p>
                             </div>
                         )
                     })}
